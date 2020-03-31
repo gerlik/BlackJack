@@ -1,29 +1,57 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public class Hand extends Blackjack {
+public class Hand{
+    private List<Card> cardsInHand = new ArrayList<>();
+    private int value;
 
-    private String ace = "ACE";
 
-    public int calculateHandValue(List<Card> cards) {
+    public int calculateHandValue() {
+        int acesCount = 0;
         int sum = 0;
-        for (Card card : cards) {
-            if (card.equals(ace)) {
+        for (Card card : cardsInHand) {
+            String cardValue =  card.getValue();
 
-            } else if (card.equals("JACK") || card.equals("QUEEN") || card.equals("KING")) {
-                sum = sum + 10;
-            } else {
-                // TODO get card 2,3, ..10 int value or make a list somewhere
+            if (cardValue.equals("A")) {
+                acesCount += 1;
+            }
+            else if (cardValue.equals("J") || cardValue.equals("Q") || cardValue.equals("K")) {
+                sum += 10;
+            }
+            else {
+                sum += Integer.parseInt(cardValue);
             }
         }
-        return sum;
-    }
 
-    public boolean hasBlackjack(int value) {
-        if (value == 21) {
-            return true;
+        // Search best value for hand with ace or aces
+        if (acesCount > 0) {
+            int bestValue = sum + acesCount;
+            int distance = Math.abs(21 - bestValue);
+            for (int i = 1; i <= acesCount; i++) {
+                int temp_value = sum + i * 11 + (acesCount - i);
+                int temp_distance = Math.abs(21 - temp_value);
+                if (temp_value <= 21 && temp_distance < distance){
+                    distance = temp_distance;
+                    bestValue = temp_value;
+                }
+            }
+            this.value = bestValue;
+            return bestValue;
         }
-        return false;
+        else
+            this.value = sum;
+            return sum;
     }
 
+    public boolean hasBlackjack() {
+        return value == 21;
+    }
 
+    public void addCardsToHand(Card card) {
+        this.cardsInHand.add(card);
+    }
+
+    public boolean pushCheck() {
+        return value >= 10;
+    }
 }

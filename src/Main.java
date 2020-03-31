@@ -4,13 +4,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello, what is your name? ");
-        String name = scan.nextLine();
+        //String name = scan.nextLine();
+        String name = "Test";
 
         System.out.println("How much cash you have today? ");
-        double money = scan.nextDouble();
+        //double money = scan.nextDouble();
 
-        // New player
-        Player player = new Player(name, money);
+        double money = 100; //TODO remove test values
+        double startMoney = money;
+
         System.out.println("Hello, " + name + " we hope you are ready to play some blackjack.\n");
 
         // Gameplay loop
@@ -26,16 +28,20 @@ public class Main {
 
             // Yes/No
             if (answer.equals("no")) {
-                System.out.printf("Thank you for playing!");
+                System.out.print("Thank you for playing!");
                 break;
             }
         }
 
+        double difference = money - startMoney;
         if (money == 0) {
             System.out.println("Unfortunately you do not have enough funds to play more.");
-            System.out.println("You won X ");
-        } else {
-            System.out.println("You won X , have a great night.");
+        }
+        else if (difference > 0) {
+            System.out.printf("You won %s , have a great night.", difference);
+        }
+        else {
+            System.out.printf("You lose %s , have a great night.", difference);
         }
     }
 }

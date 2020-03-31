@@ -1,29 +1,43 @@
 import java.util.*;
 
-public class Deck extends Blackjack {
-
-    List<String> deck = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "JACK", "QUEEN", "KING", "ACE"));
-
-    public List<String> getDeck() {
-        return deck;
-    }
+public class Deck{
+    Random random = new Random();
+    List<Card> currentDeck = new ArrayList<>();
+    List<Integer> indexesOfPlayedCards = new ArrayList<>();
 
     public void generateDecks(int nr) {
-        List<String> decks = new ArrayList<>();
+        List<Card> deck = new ArrayList<>();
         for (int i = 0; i < nr; i++) {
-            for (String card : deck) {
-                decks.add(card);
+            for (int j = 2; j < 15; j++) {
+                deck.add(new Card(0, j));// Add clubs
+                deck.add(new Card(1, j));// Add diamonds
+                deck.add(new Card(2, j));// Add hearts
+                deck.add(new Card(3, j));// Add spades
             }
         }
 
         // Shuffle the deck
-        Collections.shuffle(decks);
+        Collections.shuffle(deck);
+        currentDeck = deck;
     }
 
-    public void drawOneCard() {
-        Random random = new Random();
-        int nextCardToPick = random.nextInt(deck.size());
-        System.out.println(deck.get(nextCardToPick));
-    }
+    public void drawCards(int count, Hand whoDraws) {
+        /*
+            Dealer -- 0
+            Player -- 1
 
+         loop to draw multiple cards if needed
+         */
+        for (int i = 0; i < count; i++) {
+            int nextCardIndex = random.nextInt(currentDeck.size());
+            Card nextCard = currentDeck.get(nextCardIndex);
+            while (indexesOfPlayedCards.contains(nextCardIndex)){
+                nextCardIndex = random.nextInt(currentDeck.size());
+                nextCard = currentDeck.get(nextCardIndex);
+            }
+            System.out.println(nextCard.toString());
+            whoDraws.addCardsToHand(nextCard);
+            indexesOfPlayedCards.add(nextCardIndex);
+        }
+    }
 }
