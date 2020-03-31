@@ -1,17 +1,21 @@
 # Blackjack'i kaardimäng
 Projekti eesmärgiks on luua populaarse kaardimängu Blackjack mõnevõrra lihtsustatud versioon. Rühmatöö esimese osa lõpuks
-peaks valmima ilma kasutajaliideseta, klaviatuurilt sisestamisega kaardimäng.
+peaks valmima ilma kasutajaliideseta, klaviatuurilt sisestamisega kaardimäng. 
+https://en.wikipedia.org/wiki/Blackjack
 
-####Autorid:  
+#### Autorid:  
 * Gerli Kõiv
 * Maksim Makarskiy
 
 ### Klasside kirjeldused
 ```
 Main: peameetod
+Blackjack: mängu loogika
+Dealer:
+Player:
+Hand: 
 Card:
 Deck:
-Player: 
 ```
 
 ### Projekti tegemise kirjeldus
@@ -26,7 +30,7 @@ _iga rühmaliikme panus (sh tehtud klassid/meetodid) ja ajakulu (orienteeruvalt)
 _tegemise mured (nt millistest teadmistest/oskustest tundsite projekti tegemisel puudust);_
 
 
-###Hinnang
+### Hinnang
 _hinnang oma töö lõpptulemusele (millega saite hästi hakkama ja mis vajab arendamist);_
 
 

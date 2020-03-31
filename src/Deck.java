@@ -1,8 +1,12 @@
 import java.util.*;
 
-public class Deck {
+public class Deck extends Blackjack {
 
     List<String> deck = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "JACK", "QUEEN", "KING", "ACE"));
+
+    public List<String> getDeck() {
+        return deck;
+    }
 
     public void generateDecks(int nr) {
         List<String> decks = new ArrayList<>();
