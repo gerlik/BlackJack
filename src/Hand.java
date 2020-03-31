@@ -43,15 +43,23 @@ public class Hand{
             return sum;
     }
 
-    public boolean hasBlackjack() {
-        return value == 21;
-    }
-
     public void addCardsToHand(Card card) {
         this.cardsInHand.add(card);
     }
 
     public boolean pushCheck() {
         return value >= 10;
+    }
+
+    public boolean bustCheck() {
+        return value > 21;
+    }
+
+    public boolean hasBlackjack() {
+        return value == 21;
+    }
+
+    public boolean hasOnlyAce() {
+        return value == 11 && cardsInHand.size() == 1;
     }
 }

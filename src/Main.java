@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 public class Main {
+    private double money;
+
+
     public static void main(String[] args) {
+        int games_played = 0;
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello, what is your name? ");
         //String name = scan.nextLine();
@@ -17,20 +21,26 @@ public class Main {
 
         // Gameplay loop
         while (money > 0) {
+            if (games_played != 0) {
+                System.out.println("Continue playing?");
+                String answer = scan.nextLine();
+
+
+                // Yes/No
+                if (answer.toLowerCase().equals("no")) {
+                    System.out.print("Thank you for playing!");
+                    break;
+                }
+            }
+
             System.out.println("Insert your bet amount: ");
-            double bet = scan.nextDouble();
+            double bet = Double.parseDouble(scan.nextLine());
+            money -= bet;
 
             Blackjack game = new Blackjack();
-            game.startPlay();
-
-            System.out.println("Continue playing?");
-            String answer = scan.nextLine().toLowerCase();
-
-            // Yes/No
-            if (answer.equals("no")) {
-                System.out.print("Thank you for playing!");
-                break;
-            }
+            money += game.startPlay(bet);
+            System.out.printf("balance %s\n", money);
+            games_played++;
         }
 
         double difference = money - startMoney;
