@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Blackjack {
-    Deck deck = new Deck();
-    Hand dealer = new Hand();
-    Hand player = new Hand();
-    Scanner sc = new Scanner(System.in);
+    private Deck deck = new Deck();
+    private Hand dealer = new Hand();
+    private Hand player = new Hand();
+    private Scanner sc = new Scanner(System.in);
 
     public double startPlay(double bet) {
         double new_bet = bet;
@@ -52,7 +52,9 @@ public class Blackjack {
             if (ans.toLowerCase().equals("hit")) {
                 // if player hits, bet will change
                 System.out.println("What's your bet?");
-                new_bet += Integer.parseInt(sc.nextLine());
+                new_bet = Integer.parseInt(sc.nextLine());
+                betCheck(bet, new_bet);
+                new_bet += new_bet;
                 deck.drawCards(1, player);
                 if (player.bustCheck())
                     return 0;
@@ -64,7 +66,9 @@ public class Blackjack {
                 ans = sc.nextLine();
                 if (ans.toLowerCase().equals("hit")) {
                     System.out.println("What's your bet?");
-                    new_bet += Integer.parseInt(sc.nextLine());
+                    new_bet = Integer.parseInt(sc.nextLine());
+                    betCheck(bet, new_bet);
+                    new_bet += new_bet;
                     deck.drawCards(1, player);
                     if (player.bustCheck())
                         return 0;
@@ -95,6 +99,15 @@ public class Blackjack {
         }
     }
 
-    //public double
-//TODO check for bet (bet > 0 and maybe new_bet < bet)
+    // First bet has to be the biggest
+    public void betCheck(double bet, double new_bet) {
+        Scanner scan = new Scanner(System.in);
+        if (bet > 0) {
+            while (new_bet > bet) {
+                System.out.println("Current bet cannot be bigger than your very first bet. What's your bet? ");
+                new_bet = Double.parseDouble(scan.nextLine());
+            }
+        }
+    }
+
 }
