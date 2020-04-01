@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Deck {
     Random random = new Random();
-    List<Card> currentDeck = new ArrayList<>();
-    List<Integer> indexesOfPlayedCards = new ArrayList<>();
+    private List<Card> currentDeck = new ArrayList<>();
+    private List<Integer> indexesOfPlayedCards = new ArrayList<>();
 
     public void generateDecks(int nr) {
         List<Card> deck = new ArrayList<>();

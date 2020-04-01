@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Main {
-    private double money;
 
     public static void main(String[] args) {
         int games_played = 0;
@@ -32,6 +31,10 @@ public class Main {
 
             System.out.println("Insert your bet amount: ");
             double bet = Double.parseDouble(scan.nextLine());
+            while (bet > money) {
+                System.out.println("You do not have that much money. Insert your bet amount: ");
+                bet = Double.parseDouble(scan.nextLine());
+            }
             money -= bet;
 
             Blackjack game = new Blackjack();
