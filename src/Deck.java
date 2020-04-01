@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Deck{
+public class Deck {
     Random random = new Random();
     List<Card> currentDeck = new ArrayList<>();
     List<Integer> indexesOfPlayedCards = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Deck{
         for (int i = 0; i < count; i++) {
             int nextCardIndex = random.nextInt(currentDeck.size());
             Card nextCard = currentDeck.get(nextCardIndex);
-            while (indexesOfPlayedCards.contains(nextCardIndex)){
+            while (indexesOfPlayedCards.contains(nextCardIndex)) {
                 nextCardIndex = random.nextInt(currentDeck.size());
                 nextCard = currentDeck.get(nextCardIndex);
             }

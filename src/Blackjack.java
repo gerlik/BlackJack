@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Blackjack {
-    Deck d = new Deck();
+    Deck deck = new Deck();
     Hand dealer = new Hand();
     Hand player = new Hand();
     Scanner sc = new Scanner(System.in);
@@ -10,68 +10,68 @@ public class Blackjack {
         double new_bet = bet;
 
         // generate deck
-        d.generateDecks(4);
+        deck.generateDecks(4);
 
         // player draws
         System.out.println("\nYour cards are: ");
-        d.drawCards(2, player);
+        deck.drawCards(2, player);
 
-        // dealer draw
+        // dealer draws
         System.out.println("\nDealer card is: ");
-        d.drawCards(1, dealer);
+        deck.drawCards(1, dealer);
 
-        // check for BlackJack
+        // Check for BlackJack
         if (player.hasBlackjack()) {
             if (dealer.pushCheck()) {
                 if (dealer.hasOnlyAce()) {
-                    // ask player what he prefer take his win or play
-                    // if player choose money give him twice his bet
+                    // ask player what he prefers: take his win or play
+                    // if player chooses money give him twice his bet
                     System.out.println("Money or play?");
                     String ans = sc.nextLine();
                     if (ans.toLowerCase().equals("money")) {
                         return 2 * bet;
                     }
                 }
-                // if player choose to play starts dealer's turn
+                // if player choose to play, start dealer's turn
                 dealerTurnPlayerHasBlackJack();
-                // if dealer also have BlackJack than it's draw and player will receive his bet
+                // if dealer also has BlackJack then it's a draw and player will receive his bet
                 if (dealer.hasBlackjack()) {
                     return bet;
                 }
             }
-            // if dealer doesn't have BlackJack than player receives 3/2 of his bet
+            // if dealer doesn't have BlackJack then player receives 3/2 of his bet
             else {
                 return 2.5 * bet;
             }
         }
-        // if player doesn't have BlackJack he need to choose want he hit or stand
+
+        // If player doesn't have BlackJack he needs to choose to hit or stand
         else {
-            System.out.println("Hit or stand?");
+            System.out.println("\nHit or stand?");
             String ans = sc.nextLine();
             if (ans.toLowerCase().equals("hit")) {
-                // if player hits bet will change
+                // if player hits, bet will change
                 System.out.println("What's your bet?");
                 new_bet += Integer.parseInt(sc.nextLine());
-                d.drawCards(1, player);
+                deck.drawCards(1, player);
                 if (player.bustCheck())
                     return 0;
             }
 
             // this procedure can be done multiple times
-            while (ans.equals("hit") && player.calculateHandValue() <= 21)
-            {
-                System.out.println("Hit or stand?");
+            while (ans.equals("hit") && player.calculateHandValue() <= 21) {
+                System.out.println("\nHit or stand?");
                 ans = sc.nextLine();
                 if (ans.toLowerCase().equals("hit")) {
                     System.out.println("What's your bet?");
                     new_bet += Integer.parseInt(sc.nextLine());
-                    d.drawCards(1, player);
+                    deck.drawCards(1, player);
                     if (player.bustCheck())
                         return 0;
                 }
             }
 
-            // after player's turn starts dealer's turn
+            // after player's turn dealer's turn starts
             dealerTurn();
             if (dealer.bustCheck())
                 return 1.7 * new_bet;
@@ -84,14 +84,14 @@ public class Blackjack {
     private void dealerTurnPlayerHasBlackJack() {
         while (dealer.calculateHandValue() < 21) {
             System.out.print("Dealer draws: ");
-            d.drawCards(1, dealer);
+            deck.drawCards(1, dealer);
         }
     }
 
     private void dealerTurn() {
         while (dealer.calculateHandValue() < 17) {
             System.out.print("Dealer draws: ");
-            d.drawCards(1, dealer);
+            deck.drawCards(1, dealer);
         }
     }
 
