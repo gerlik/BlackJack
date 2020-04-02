@@ -21,7 +21,7 @@ raha ja on viik ehk _push_.
 ### Klasside kirjeldused
 ```
 Main: peameetod, suhtleb mängijaga, alustab mängijaga mängu
-Blackjack: startPlay() - kogu mängu loogika, väga tähtis klass, loob käed diilerile ja mängijale
+Blackjack: startPlay() - kogu mängu loogika, väga tähtis klass, loob käed diilerile ja mängijale, tehakse kaardipakk, kontrollitakse panust
 Hand: loob käe listi, arvutab käe väärtuse, lisab kaarte juurde, kontrollib kas on blackjack
 Deck: loob listi Card istenditega, üks deck ehk pakk on 52 kaarti,
 Card: loob isendi kaart, kaardil peab olema mast(suit) ja väärtus/nimi
@@ -34,7 +34,7 @@ Lõpuks polnud klassi Hand tõttu klasse Player, Dealer enam vaja.
 
 2) Gerli alustas peaklassist mängijaga suhtluse alustamisega. Pani kirja kõik muutujad mida võib vaja minna.
 Alustas mänguloogika paika panemisega. Lõi klassid Blackjack ja Hand. Alustas käe väärtuse arvutamisega, kaartide välja 
-jagamise meetodid. Pärast panuse tegemist peab raha maha arvutama. Pärast kaardi jagamist ei tohi kaart jääda pakki alles.
+jagamise meetodid. Pärast panuse tegemist peab raha maha arvutama.
 
 3) Maksim tegi kogu mängu loogika Blackjacki klassi, kohandas teised klassid vastavalt, kustutas Player ja Dealer klassi.
 Lisas mängijale pärast kaartide nägemist uuesti panuse küsimise. Lisas mängijale _hit_ ja _stand_ valiku. Diileri tegevused.

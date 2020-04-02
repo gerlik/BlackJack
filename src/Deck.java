@@ -38,7 +38,6 @@ public class Deck {
             System.out.println(nextCard.toString());
             whoDraws.addCardsToHand(nextCard);
             indexesOfPlayedCards.add(nextCardIndex);
-            currentDeck.remove(nextCardIndex);
         }
     }
 }
