@@ -8,11 +8,11 @@ ning kui suur on ta esimene panus. Seejärel jagab diiler kaardid välja ning m�
 kaarti. Kontrollitakse, kas kellelgi on blackjack(kas kaartide väärtus on 21). Nüüd peab mängija oma kaaride väärtuste
 põhjal otsustama paju veel panustada ning kas võtta veel kaarte nii, et 21-st üle ei lähe. Kui mängijal on kaartide
 väärtus väike arv võiks ta valida _hit_ ja saada kaardi(d), kui mängija arvab, et tal on kaartide
-väärtus piisav,võiks ta valida _stand_. 
+väärtus piisav,võiks ta valida _stand_. Mängija uued panused ei tohi olla suuremad, kui esimene panus enne kaartide nägemist.
 Nüüd kui vaja, võtab diiler vajaliku arvu kaarte, et saada võimalikult 21-le ligidal arv või täpselt 21 nii, et 21-st üle ei 
 minda, nagu mängijagi. Kui diiler läheb üle 21 ja mängija mitte, võidab mängija, kui mängija oli juba üle 21 läinud 
 võidab diiler. Mängija kaotab oma panustatud raha kaotades. Kui mõlemate kaartide väärtused jäid võrdseks ei kaota keegi
-raha ja on viik ehk _push_.
+raha ja on viik ehk _push_. Kui mängija võidab blackjackiga siis võidab ta 250% panustatud summast.
 
 #### Autorid:  
 * Gerli Kõiv
@@ -21,9 +21,16 @@ raha ja on viik ehk _push_.
 ### Klasside kirjeldused
 ```
 Main: peameetod, suhtleb mängijaga, alustab mängijaga mängu
-Blackjack: startPlay() - kogu mängu loogika, väga tähtis klass, loob käed diilerile ja mängijale, tehakse kaardipakk, kontrollitakse panust
-Hand: loob käe listi, arvutab käe väärtuse, lisab kaarte juurde, kontrollib kas on blackjack
-Deck: loob listi Card istenditega, üks deck ehk pakk on 52 kaarti,
+
+Blackjack: startPlay() - kogu mängu loogika, väga tähtis klass, kasutab kõikide teist klasside meetodeid mängu loomiseks
+(loob käed diilerile ja mängijale, tehakse kaardipakk), diileri tegevused: dealerTurn() ja dealerTurnPlayerHasBlackJack, 
+betCheck() kontrollib panuse suurust, suhtleb mängijaga
+
+Hand: loob käe listi, arvutab käe väärtuse, lisab kaarte juurde, kontrollib kas on blackjack, lõhki(busted)
+
+Deck: loob listi Card istenditega, üks deck ehk pakk on 52 kaarti, drawCards() - tähtis meetod saab tõmmata n arv kaarte
+etteantud isikule
+
 Card: loob isendi kaart, kaardil peab olema mast(suit) ja väärtus/nimi
 ```
 
@@ -43,12 +50,13 @@ Lisas mängijale pärast kaartide nägemist uuesti panuse küsimise. Lisas mäng
 
 ```
 Gerli: 14h (tegi kõik klassid ja lõi mängu põhjaks olevaid muutujaid ja meetodeid)
-Maksim:  h (tegi suurema osa mängu loogikast, sai aru et Player ja Dealer klasse pole vaja)
+Maksim:  8h (tegi suurema osa mängu loogikast, sai aru et Player ja Dealer klasse pole vaja)
 ```
 
 ### Mured
 
 Vahel polnud kindel, mis klassi meetod või osad muutujad teha või kas peaks kasutama alam- ja ülemklasse. 
+Panuste ja võidusummade arvud võivad mõne tundmatu stsenaariumiga veel katki olla.
 
 ### Hinnang
 Saime normaalselt hakkama.
