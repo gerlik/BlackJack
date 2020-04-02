@@ -6,13 +6,10 @@ public class Main {
         int games_played = 0;
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello, what is your name? ");
-        //String name = scan.nextLine();
-        String name = "Test";
+        String name = scan.nextLine();
 
         System.out.println("How much cash you have today? ");
-        //double money = scan.nextDouble();
-
-        double money = 100; //TODO remove test values
+        double money = Double.parseDouble(scan.nextLine());
         double startMoney = money;
 
         System.out.println("Hello, " + name + " we hope you are ready to play some blackjack.\n");
@@ -38,8 +35,15 @@ public class Main {
             money -= bet;
 
             Blackjack game = new Blackjack();
-            money += game.startPlay(bet);
-            System.out.printf("\nYour balance: %s\n", money);
+            double difference  = game.startPlay(bet);
+            money += difference;
+            if (difference > 0)
+                System.out.println("You won!");
+            else if (difference == 0)
+                System.out.println("Draw");
+            else
+                System.out.println("Unfortunately you lose :(\n better luck next time");
+            System.out.printf("\nYour balance now: %s\n", money);
             games_played++;
         }
 

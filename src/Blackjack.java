@@ -29,7 +29,7 @@ public class Blackjack {
                     System.out.println("Money or play?");
                     String ans = sc.nextLine();
                     if (ans.toLowerCase().equals("money")) {
-                        return 2 * bet;
+                        return 2.5 * bet;
                     }
                 }
                 // if player choose to play, start dealer's turn
@@ -41,7 +41,7 @@ public class Blackjack {
             }
             // if dealer doesn't have BlackJack then player receives 3/2 of his bet
             else {
-                return 2.5 * bet;
+                return 3 * bet;
             }
         }
 
@@ -49,6 +49,7 @@ public class Blackjack {
         else {
             System.out.println("\nHit or stand?");
             String ans = sc.nextLine();
+            System.out.println();
             if (ans.toLowerCase().equals("hit")) {
                 // if player hits, bet will change
                 System.out.println("What's your bet?");
@@ -56,6 +57,7 @@ public class Blackjack {
                 betCheck(bet, new_bet);
                 new_bet += new_bet;
                 deck.drawCards(1, player);
+                System.out.println();
                 if (player.bustCheck())
                     return 0;
             }
@@ -64,23 +66,28 @@ public class Blackjack {
             while (ans.equals("hit") && player.calculateHandValue() <= 21) {
                 System.out.println("\nHit or stand?");
                 ans = sc.nextLine();
+                System.out.println();
                 if (ans.toLowerCase().equals("hit")) {
                     System.out.println("What's your bet?");
                     new_bet = Integer.parseInt(sc.nextLine());
                     betCheck(bet, new_bet);
                     new_bet += new_bet;
                     deck.drawCards(1, player);
-                    if (player.bustCheck())
+                    System.out.println();
+                    if (player.bustCheck()) {
                         return 0;
+                    }
                 }
             }
 
             // after player's turn dealer's turn starts
             dealerTurn();
             if (dealer.bustCheck())
-                return 1.7 * new_bet;
+                return 2 * new_bet;
             else if (player.calculateHandValue() > dealer.calculateHandValue())
-                return 1.7 * new_bet;
+                return 2 * new_bet;
+            else if (player.calculateHandValue() == dealer.calculateHandValue())
+                return new_bet;
         }
         return 0;
     }
