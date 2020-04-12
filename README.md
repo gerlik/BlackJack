@@ -82,4 +82,5 @@ Testisime projekti manuaalselt - programmi tööle pannes ja läbi mängides võ
 This is a school project which aims to further enhance the authors' programming skills and
 understanging of java.
 
+Card images from: http://acbl.mybigcommerce.com/52-playing-cards/
 
