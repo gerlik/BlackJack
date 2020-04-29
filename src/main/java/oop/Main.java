@@ -22,7 +22,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         GridPane grid = new GridPane();
-        grid.setStyle("-fx-background-color: #228B22;");  // Set intro panel bg to green
+        grid.setStyle("-fx-background-color: #5ead5e;");  // Set intro panel bg to green
         VBox introduction = new VBox();
         introduction.setSpacing(10);
 
@@ -34,7 +34,7 @@ public class Main extends Application {
         Text gameInfoText = new Text("\n\rGame starts after you press Enter");
 
         // Add introduction text to pane and set alignment
-        introduction.getChildren().addAll(hello, askName, name, askMoneyAmount, money,gameInfoText); // Add all text and textboxes
+        introduction.getChildren().addAll(hello, askName, name, askMoneyAmount, money, gameInfoText); // Add all text and textboxes
         grid.getChildren().add(introduction);
         grid.setAlignment(Pos.CENTER);
         introduction.setAlignment(Pos.CENTER);
@@ -44,13 +44,71 @@ public class Main extends Application {
         // Make gameplay window
         money.setOnKeyPressed(key -> { // If enter pressed open game window
             if (key.getCode().equals(KeyCode.ENTER)) {
+                double wallet = Double.parseDouble(money.getText());
                 VBox gameWindow = new VBox();
-                Text dealer = new Text("Dealer");
-                Text you = new Text("You (" + (name.getText()) + ")");
-                Text wallet = new Text("Wallet "+money.getText());
-                gameWindow.getChildren().addAll(dealer, you,wallet);
+                Text dealerText = new Text("Dealer");
+                Text playerText = new Text("You (" + (name.getText()) + ")");
+                Text walletText = new Text("Wallet " + wallet);
+                gameWindow.getChildren().addAll(dealerText, playerText, walletText);
                 gameWindow.setAlignment(Pos.CENTER);
-                gameWindow.setStyle("-fx-background-color: #228B22;");
+                gameWindow.setStyle("-fx-background-color: #5ead5e;");
+                double startMoney = wallet;
+
+                int games_played = 0;
+                // Gameplay loop
+//                while (wallet > 0) {
+//                    if (games_played != 0) {
+//                        HBox endGameWindow = new HBox();
+//                        Text continuePlayTxt = new Text("Continue playing?");
+//                        Button continuePlayBtn = new Button("Yes");
+//                        Button cancelPlayBtn = new Button("Cancel");
+//                        endGameWindow.getChildren().addAll(continuePlayTxt, continuePlayBtn, cancelPlayBtn);
+//                        endGameWindow.setAlignment(Pos.CENTER);
+//                        endGameWindow.setStyle("-fx-background-color: #5ead5e;");
+//
+//                        // Yes/No
+//                        cancelPlayBtn.setOnAction(k -> { // If enter pressed open game window
+//                            stage.hide();
+//                        });
+//                    }
+//
+//                    Text insertBet = new Text("Bet amount: ");
+//                    TextField betText = new TextField("5.00");
+//                    gameWindow.getChildren().addAll(insertBet, betText);
+//                    double bet = Double.parseDouble(betText.getText());
+//                    while (bet > wallet) {
+//                        Text playerBetLargerThanWalletText = new Text("You do not have that much money. Insert your bet amount: ");
+//                        Text insertNewBet = new Text("Bet amount: ");
+//                        TextField newBet = new TextField("5.00");
+//                        gameWindow.getChildren().addAll(playerBetLargerThanWalletText, insertNewBet, newBet);
+//                        bet = Double.parseDouble(newBet.getText());
+//                    }
+//                    wallet = wallet - bet;
+//
+//                    Blackjack game = new Blackjack();
+//                    double difference = game.startPlay(bet);
+//                    wallet += difference;
+//                    if (difference > 0)
+//                        System.out.println("You won!");
+//                    else if (difference == 0)
+//                        System.out.println("Draw");
+//                    else
+//                        System.out.println("Unfortunately you lose :(\n better luck next time");
+//                    System.out.printf("\nYour balance now: %s\n", wallet);
+//                    games_played++;
+//                }
+
+                double difference = wallet - startMoney;
+                if (wallet == 0) {
+                    Text notEnoughFundsText = new Text("Unfortunately you do not have enough funds to play more.");
+                    gameWindow.getChildren().add(notEnoughFundsText);
+                } else if (difference > 0) {
+                    Text playerWonText = new Text("You won %s, thank you for playing." + difference); // TODO fix
+                    gameWindow.getChildren().add(playerWonText);
+                } else {
+                    Text playerLostText = new Text("You lost %s, thank you for playing." + difference);
+                    gameWindow.getChildren().add(playerLostText);
+                }
 
                 Scene gameScene = new Scene(gameWindow, 900, 600);
                 stage.setTitle("Blackjack");
@@ -58,50 +116,6 @@ public class Main extends Application {
                 stage.show();
             }
         });
-
-        int games_played = 0;
-
-        // Gameplay loop
-//        while (money > 0) {
-//            if (games_played != 0) {
-//                System.out.println("Continue playing?");
-//                String answer = scan.nextLine();
-//
-//                // Yes/No
-//                if (answer.toLowerCase().equals("no")) {
-//                    break;
-//                }
-//            }
-//
-//            System.out.println("Insert your bet amount: ");
-//            double bet = Double.parseDouble(scan.nextLine());
-//            while (bet > money) {
-//                System.out.println("You do not have that much money. Insert your bet amount: ");
-//                bet = Double.parseDouble(scan.nextLine());
-//            }
-//            money -= bet;
-//
-//            Blackjack game = new Blackjack();
-//            double difference = game.startPlay(bet);
-//            money += difference;
-//            if (difference > 0)
-//                System.out.println("You won!");
-//            else if (difference == 0)
-//                System.out.println("Draw");
-//            else
-//                System.out.println("Unfortunately you lose :(\n better luck next time");
-//            System.out.printf("\nYour balance now: %s\n", money);
-//            games_played++;
-//        }
-
-//        double difference = money - startMoney;
-//        if (money == 0) {
-//            System.out.println("Unfortunately you do not have enough funds to play more.");
-//        } else if (difference > 0) {
-//            System.out.printf("You won %s, thank you for playing.", difference);
-//        } else {
-//            System.out.printf("You lost %s, thank you for playing.", difference);
-//        }
 
         Scene scene = new Scene(grid, 900, 600);
         stage.setTitle("Blackjack");
