@@ -1,5 +1,9 @@
 package oop;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
 import java.util.Scanner;
 
 public class Blackjack {
@@ -9,11 +13,11 @@ public class Blackjack {
     private Scanner sc = new Scanner(System.in);
 
     // TODO Suhtlemine kasutajaga peab olema realiseeritud graafilise kasutajaliidese abil.
-    //  Programm peab töötlema nii hiire kui ka klaviatuuriga tekitatud sündmusi. - Hit = klahv H?
+    //  Programm peab töötlema nii hiire kui ka klaviatuuriga tekitatud sündmusi.
     // TODO Programmi akna suurust muutes peab kuvatu mõistlikult muutuma.
     // TODO Programm peab mingid andmed kirjutama faili ja neid failist ka lugema. Näiteks võib tekitada logifaili ja selle põhjal korraldada käikude tagasivõtmise.
     // TODO Erinditöötluse abil tagada, et toimuks mõistlik reageerimine (vähemalt mõnedele) kasutaja ekslikele tegevustele (nt. sisestustele).
-    public double startPlay(double bet) {
+    public double startPlay(double bet, VBox gameWindow) {
         double new_bet = bet;
 
         // generate deck
@@ -54,38 +58,43 @@ public class Blackjack {
 
         // If player doesn't have BlackJack he needs to choose to hit or stand
         else {
-            System.out.println("\nHit or stand?");
-            String ans = sc.nextLine();
-            System.out.println();
-            if (ans.toLowerCase().equals("hit")) {
-                // if player hits, bet will change
-                System.out.println("What's your bet?");
-                new_bet = Integer.parseInt(sc.nextLine());
-                betCheck(bet, new_bet);
-                new_bet += new_bet;
-                deck.drawCards(1, player);
-                System.out.println();
-                if (player.bustCheck())
-                    return 0;
-            }
+            Text askHitOrStandText = new Text("\nHit or stand?"); // System.out.println("\nHit or stand?");
+            Button hit = new Button("Hit");   // String ans = sc.nextLine();
+            gameWindow.getChildren().addAll(askHitOrStandText, hit);
 
-            // this procedure can be done multiple times
-            while (ans.equals("hit") && player.calculateHandValue() <= 21) {
-                System.out.println("\nHit or stand?");
-                ans = sc.nextLine();
-                System.out.println();
-                if (ans.toLowerCase().equals("hit")) {
-                    System.out.println("What's your bet?");
-                    new_bet = Integer.parseInt(sc.nextLine());
-                    betCheck(bet, new_bet);
-                    new_bet += new_bet;
-                    deck.drawCards(1, player);
-                    System.out.println();
-                    if (player.bustCheck()) {
-                        return 0;
-                    }
-                }
-            }
+            // HIT
+            hit.setOnAction(k -> {
+                // if player hits, bet will change
+                String ans = "hit";
+                System.out.println("What's your bet?");
+//                new_bet = Integer.parseInt(sc.nextLine());
+//                betCheck(bet, new_bet);
+//                new_bet += new_bet;
+                deck.drawCards(1, player);
+
+//                if (player.bustCheck()) {
+//                    return 0;
+//                }
+//
+//                // this procedure can be done multiple times
+//                while (ans.equals("hit") && player.calculateHandValue() <= 21) {
+//                    System.out.println("\nHit or stand?");
+//                    ans = sc.nextLine();
+//                    System.out.println();
+//                    if (ans.toLowerCase().equals("hit")) {
+//                        System.out.println("What's your bet?");
+//                        new_bet = Integer.parseInt(sc.nextLine());
+//                        betCheck(bet, new_bet);
+//                        new_bet += new_bet;
+//                        deck.drawCards(1, player);
+//                        System.out.println();
+//                        if (player.bustCheck()) {
+//                            return 0;
+//                        }
+//                    }
+//                }
+
+            });
 
             // after player's turn dealer's turn starts
             dealerTurn();
@@ -118,6 +127,7 @@ public class Blackjack {
         Scanner scan = new Scanner(System.in);
         if (bet > 0) {
             while (new_bet > bet) {
+//                Text fistBetCheckText = new Text("Current bet cannot be bigger than your very first bet. What's your bet? ");
                 System.out.println("Current bet cannot be bigger than your very first bet. What's your bet? ");
                 new_bet = Double.parseDouble(scan.nextLine());
             }
