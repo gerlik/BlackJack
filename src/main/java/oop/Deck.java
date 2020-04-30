@@ -1,6 +1,9 @@
 package oop;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Deck {
     Random random = new Random();
@@ -23,13 +26,14 @@ public class Deck {
         currentDeck = deck;
     }
 
-    public void drawCards(int count, Hand whoDraws) {
+    public List<String> drawCards(int count, Hand whoDraws) {
         /*
             Dealer -- 0
             Player -- 1
 
          loop to draw multiple cards if needed
          */
+        List<String> cards = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             int nextCardIndex = random.nextInt(currentDeck.size());
             Card nextCard = currentDeck.get(nextCardIndex);
@@ -37,9 +41,11 @@ public class Deck {
                 nextCardIndex = random.nextInt(currentDeck.size());
                 nextCard = currentDeck.get(nextCardIndex);
             }
-            System.out.println(nextCard.toString());
+            cards.add(nextCard.toString()); // Add to list
+            System.out.println(nextCard.toString()); // TODO remove later
             whoDraws.addCardsToHand(nextCard);
             indexesOfPlayedCards.add(nextCardIndex);
         }
+        return cards;
     }
 }

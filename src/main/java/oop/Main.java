@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+
 
 public class Main extends Application {
 
@@ -32,7 +34,7 @@ public class Main extends Application {
         Text nameText = new Text("What is your name?");
         TextField name = new TextField("Enter name");
         Text askMoneyText = new Text("How much cash you have today?");
-        TextField money = new TextField("0.00");
+        TextField money = new TextField("100.00");
         Text gameInfoText = new Text("\n\rGame starts after you press Enter");
 
         // Add introduction text to pane and set alignment
@@ -97,7 +99,12 @@ public class Main extends Application {
                     wallet = wallet - bet;
 
                     Blackjack game = new Blackjack();
-                    double difference = game.startPlay(bet, gameWindowVBox);
+                    double difference = 0;
+                    try {
+                        difference = game.startPlay(bet, gameWindowVBox);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
                     wallet += difference;
                     if (difference > 0) {
                         Text playerWonText = new Text("You won!");
