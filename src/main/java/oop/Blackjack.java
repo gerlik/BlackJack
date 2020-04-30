@@ -16,7 +16,6 @@ public class Blackjack {
     //  Programm peab töötlema nii hiire kui ka klaviatuuriga tekitatud sündmusi.
     // TODO Programmi akna suurust muutes peab kuvatu mõistlikult muutuma.
     // TODO Programm peab mingid andmed kirjutama faili ja neid failist ka lugema. Näiteks võib tekitada logifaili ja selle põhjal korraldada käikude tagasivõtmise.
-    // TODO Erinditöötluse abil tagada, et toimuks mõistlik reageerimine (vähemalt mõnedele) kasutaja ekslikele tegevustele (nt. sisestustele).
     public double startPlay(double bet, VBox gameWindow) {
         double new_bet = bet;
 

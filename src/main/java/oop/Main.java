@@ -21,7 +21,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         GridPane grid = new GridPane();
         grid.setStyle("-fx-background-color: #5ead5e;");  // Set intro panel bg to green
@@ -46,6 +46,15 @@ public class Main extends Application {
         // Make gameplay window
         money.setOnKeyPressed(key -> { // If enter pressed open game window
             if (key.getCode().equals(KeyCode.ENTER)) {
+                // TODO Erinditöötluse abil tagada, et toimuks mõistlik reageerimine (vähemalt mõnedele) kasutaja ekslikele tegevustele (nt. sisestustele).
+                try {
+                    if (name.getText().equals("")) {
+                        throw new NoNameException("There was no name inserted.");
+                    }
+                } catch (NoNameException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 double wallet = Double.parseDouble(money.getText());
                 VBox gameWindowVBox = new VBox();
                 Text dealerText = new Text("Dealer");
