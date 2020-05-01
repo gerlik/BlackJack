@@ -4,7 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Blackjack {
@@ -16,27 +17,22 @@ public class Blackjack {
     //  Programm peab töötlema nii hiire kui ka klaviatuuriga tekitatud sündmusi.
     // TODO Programmi akna suurust muutes peab kuvatu mõistlikult muutuma.
     // TODO Programm peab mingid andmed kirjutama faili ja neid failist ka lugema. Näiteks võib tekitada logifaili ja selle põhjal korraldada käikude tagasivõtmise.
-    public double startPlay(double bet, VBox gameWindow) throws MalformedURLException {
+    public double startPlay(double bet, VBox gameWindow) {
         double new_bet = bet;
 
-        // generate deck
+        // Generate deck
         deck.generateDecks(4);
 
         // Player draws 2 cards, show there cards
-//        deck.drawCards(2, player);
         for (String cardName : deck.drawCards(2, player)) {
-//            Image img = new Image("file:cardName.png", 320, 320, false, true);
-//            System.out.println("Path: " + getClass().getResource("/").toExternalForm());
-//            System.out.println( "Path: " + getClass().getResource("oop/2C.png").toExternalForm());
             // TODO fix path
-//            String path = "/img/2C" + ".png";
-            ImageView esimene = new ImageView(new Image(getClass().getResource("img/" + cardName + ".png").toExternalForm()));
-//            ImageView esimene = new ImageView(new Image(getClass().getResource(path).toExternalForm()));
+            Path path = Paths.get("img/" + cardName + ".png");
+            ImageView esimene = new ImageView(new Image(getClass().getResource(String.valueOf(path)).toExternalForm()));
             gameWindow.getChildren().add(esimene);
         }
 
 
-        // dealer draws
+        // Dealer draws
 //        deck.drawCards(1, dealer);
 
         // Check for BlackJack

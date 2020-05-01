@@ -12,8 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.MalformedURLException;
-
 
 public class Main extends Application {
 
@@ -46,7 +44,7 @@ public class Main extends Application {
         // TODO Rule page maybe
 
         // Make gameplay window
-        money.setOnKeyPressed(key -> { // If enter pressed open game window
+        introductionVBox.setOnKeyPressed(key -> { // If enter pressed open game window
             if (key.getCode().equals(KeyCode.ENTER)) {
                 // TODO Erinditöötluse abil tagada, et toimuks mõistlik reageerimine (vähemalt mõnedele) kasutaja ekslikele tegevustele (nt. sisestustele).
                 try {
@@ -100,11 +98,7 @@ public class Main extends Application {
 
                     Blackjack game = new Blackjack();
                     double difference = 0;
-                    try {
-                        difference = game.startPlay(bet, gameWindowVBox);
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
+                    difference = game.startPlay(bet, gameWindowVBox);
                     wallet += difference;
                     if (difference > 0) {
                         Text playerWonText = new Text("You won!");
@@ -124,6 +118,7 @@ public class Main extends Application {
                 if (wallet == 0) {
                     Text notEnoughFundsText = new Text("Unfortunately you do not have enough funds to play more.");
                     gameWindowVBox.getChildren().add(notEnoughFundsText);
+                    notEnoughFundsText.setVisible(false);
                 } else if (difference > 0) {
                     Text playerWonText = new Text("You won %s, thank you for playing." + difference); // TODO fix
                     gameWindowVBox.getChildren().add(playerWonText);
